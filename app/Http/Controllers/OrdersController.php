@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OrdersController;
+use App\Models\Orders;
 use Illuminate\Http\Request;
 
-class OrdersControllerController extends Controller
+class OrdersController extends Controller
 
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        $orders = OrdersController::all();
+        $orders = Orders::all();
         return view('admin.orders.index', compact('orders'));
     }
 
@@ -19,20 +24,20 @@ class OrdersControllerController extends Controller
      */
     public function create()
     {
-        $orders = OrdersController::all();
+        $orders = Orders::all();
         return view('admin.orders.create', compact('orders'));
     }
 
     /**
 
-     * @param \app\Models\Admin\OrdersControlle $order
+     * @param \app\Models\Admin\Orders $order
 
      * @param \Illuminate\http\Response
      */
 
     public function stor(Request $request)
     {
-        $order = new OrdersController;
+        $order = new Orders;
         $order->name = $request->name;
 
         $order->price = $request->price;
@@ -43,13 +48,13 @@ class OrdersControllerController extends Controller
     }
 
     /**
-     * @param \app\Models\Admin\OrdersControlle $orders
+     * @param \app\Models\Admin\Orders $orders
      * @param \Illuminate\http\Response
      */
     public function edit($id)
     {
 
-        $orders = OrdersController::find($id);
+        $orders = Orders::find($id);
 
         return view('admin.orders.edit', compact('orders'));
     }
@@ -58,13 +63,13 @@ class OrdersControllerController extends Controller
 
     /**
      * @param \Illuminate\http\Request $request
-     * @param \app\Models\Admin\OrdersControlle $orders
+     * @param \app\Models\Admin\Orders $orders
      * @param \Illuminate\http\Response
      */
     public function update(Request $request, $id)
     {
-        $product = OrdersController::find($id);
-        $order = new OrdersController;
+        $product = Orders::find($id);
+        $order = new Orders;
         $order->name = $request->name;
 
         $order->price = $request->price;
@@ -75,12 +80,12 @@ class OrdersControllerController extends Controller
         return redirect('orders');
     }
     /**
-     * @param \app\Models\Admin\OrdersControlle $orders
+     * @param \app\Models\Admin\Orders $orders
      * @param \Illuminate\http\Response
      */
     public function destroy($id)
     {
-        OrdersController::find($id)->delete();
+        Orders::find($id)->delete();
         return redirect()->back();
     }
 }

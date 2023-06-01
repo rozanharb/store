@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $products = Products::all();
@@ -51,8 +57,10 @@ class ProductsController extends Controller
 
         $product = Products::find($id);
         $categories = Category::all();
-        $category_name = Category::where('id', $product->category_id)->first();
-        return view('admin.product.edit', compact('product', 'categories', 'category_name'));
+        //  $category_name = Category::where('id', $product->category_id)->first();
+        $category_name = Products::find($product)->category->name;
+        dd($category_name);
+        return view('admin.product.edit', compact('product', 'category_name',));
     }
 
 

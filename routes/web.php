@@ -1,12 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Models\Category;
 use App\Models\products;
+use App\Models\Orders;
+use App\Models\Front;
+use App\Http\Controllers\Auth;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\FrontController;
+use App\Http\Controllers\FrontControllerController;
 use GuzzleHttp\Psr7\Request;
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +22,10 @@ use GuzzleHttp\Psr7\Request;
 |
 */
 
-Route::get('/', function () {
+Route::get('//', function () {
     return view('welcome');
 });
+
 
 Route::get('admin/products/create', function () {
     return view('admin.products.create');
@@ -53,3 +57,11 @@ Route::get('orders/update/id', [OrdersController::class, 'update']);
 
 ////Front Page Routes
 Route::get('/', [FrontController::class, 'index']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

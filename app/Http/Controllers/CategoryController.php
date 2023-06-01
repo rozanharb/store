@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $categories = Category::all();
@@ -48,6 +53,9 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::find($id);
+        //  $products= $category->products[1];
+        //  $products= $category->products;
+        //  dd($products);
         return view('admin.categories.edit', compact('categories'));
     }
 
